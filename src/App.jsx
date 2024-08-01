@@ -6,12 +6,12 @@ const Wrapper = styled.div`
   background-color: black;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   position: relative;
 `;
 
 const Potree = window.Potree;
-console.log("Potree", Potree)
+
 function App() {
 
   const potreeContainerDiv = useRef(null);
@@ -59,8 +59,13 @@ function App() {
   return (
     <div id="potree-root">
       <Wrapper ref={potreeContainerDiv} className="potree_container">
-        <div id="potree_render_area"></div>
+        <div id="potree_render_area">
+        </div>
       </Wrapper>
+      <div className="potree_controls">
+        <button>Back</button>
+        <button>Next</button>
+      </div>
     </div>
   );
 }
