@@ -1,6 +1,6 @@
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css'
-import React, { useRef, useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: black;
@@ -15,6 +15,7 @@ const Potree = window.Potree;
 function App() {
 
   const potreeContainerDiv = useRef(null);
+  const [cloudURL, setCloudURL] = useState('http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js');
 
   useEffect(() => {
     if (potreeContainerDiv.current) {
@@ -37,7 +38,7 @@ function App() {
       });
 
       // Load and add point cloud to scene
-      const url = 'http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js';
+      const url = cloudURL;
 
       Potree.loadPointCloud(url).then(e => {
         const pointcloud = e.pointcloud;
