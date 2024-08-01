@@ -6,7 +6,8 @@ const POINT_CLOUDS = [
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/360/MLS_drive1/cloud.js",
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/opentopography/CA13_1.4/cloud.js",
-  
+  'http://5.9.65.151/mschuetz/potree/resources/pointclouds/opentopography/CA13_1.4/cloud.js'
+
 ]
 
 const Wrapper = styled.div`
@@ -22,7 +23,16 @@ const Potree = window.Potree;
 function App() {
 
   const potreeContainerDiv = useRef(null);
-  const [cloudURL, setCloudURL] = useState('http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js');
+  const [target, setTarget] = useState(0);
+
+  const onChangePointCloud = (number) => {
+    const newTarget = target + number;
+    console.log(newTarget)
+    if (newTarget > POINT_CLOUDS.length || newTarget < 0) {
+      setTarget(0);
+    }
+    setTarget(newTarget)
+  }
 
   useEffect(() => {
     if (potreeContainerDiv.current) {
@@ -45,7 +55,7 @@ function App() {
       });
 
       // Load and add point cloud to scene
-      const url = cloudURL;
+      const url = POINT_CLOUDS[target];
 
       Potree.loadPointCloud(url).then(e => {
         const pointcloud = e.pointcloud;
@@ -62,7 +72,7 @@ function App() {
         console.log("This is the url", url);
       }).catch(e => console.error("ERROR: ", e));
     }
-  }, []);
+  }, [target]);
 
   return (
     <div id="potree-root">
@@ -71,8 +81,8 @@ function App() {
         </div>
       </Wrapper>
       <div className="potree_controls">
-        <button>Back</button>
-        <button>Next</button>
+        <button onClick={() => onChangePointCloud(-1)}>Back</button>
+        <button onClick={() => onChangePointCloud(1)}>Next</button>
       </div>
     </div>
   );
