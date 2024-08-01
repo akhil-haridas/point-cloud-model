@@ -2,6 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css'
 
+const POINT_CLOUDS = [
+  "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/360/MLS_drive1/cloud.js",
+  "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
+  "http://5.9.65.151/mschuetz/potree/resources/pointclouds/opentopography/CA13_1.4/cloud.js",
+  
+]
+
 const Wrapper = styled.div`
   background-color: black;
   display: flex;
