@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import './App.css'
 
 const POINT_CLOUDS = [
+  'http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/epalinges/als_converted/cloud.js',
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/360/MLS_drive1/cloud.js",
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
   "http://arena4d.uksouth.cloudapp.azure.com:8080/4e5059c4-f701-4a8f-8830-59e78a2c0816/BLK360 Sample.vpc",
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
-  'http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/epalinges/als_converted/cloud.js'
 ]
 
 const Wrapper = styled.div`
@@ -23,7 +23,7 @@ const Potree = window.Potree;
 function App() {
 
   const potreeContainerDiv = useRef(null);
-  const [target, setTarget] = useState(4);
+  const [target, setTarget] = useState(0);
 
   const onChangePointCloud = (number) => {
     const newTarget = target + number;
