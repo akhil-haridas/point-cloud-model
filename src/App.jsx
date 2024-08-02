@@ -1,85 +1,38 @@
-import React, { useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import { PotreeViewer, SideToolBar } from "./components";
 
 const POINT_CLOUDS = [
-  'http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/epalinges/als_converted/cloud.js',
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/360/MLS_drive1/cloud.js",
+  "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/epalinges/als_converted/cloud.js",
   "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
-  "http://arena4d.uksouth.cloudapp.azure.com:8080/4e5059c4-f701-4a8f-8830-59e78a2c0816/BLK360 Sample.vpc",
-  "http://5.9.65.151/mschuetz/potree/resources/pointclouds/archpro/heidentor/cloud.js",
-]
-
-const Wrapper = styled.div`
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-`;
-
-const Potree = window.Potree;
+];
 
 function App() {
+  const [cloudUrl, setCloudUrl] = useState(POINT_CLOUDS[0]);
 
-  const potreeContainerDiv = useRef(null);
-  const [target, setTarget] = useState(0);
-
-  const onChangePointCloud = (number) => {
-    const newTarget = target + number;
-    if (newTarget > POINT_CLOUDS.length || newTarget < 0) {
-      setTarget(0);
-    } else {
-      setTarget(newTarget)
+  const onChangePointCloud = (target) => {
+    const currentIndex = POINT_CLOUDS.findIndex((url) => url === cloudUrl);
+    if (currentIndex === 0 && target === -1) {
+      setCloudUrl(POINT_CLOUDS[POINT_CLOUDS.length]);
+    } else if (currentIndex === POINT_CLOUDS.length && target === 1) {
+      setCloudUrl(POINT_CLOUDS[0]);
     }
-  }
-
-  useEffect(() => {
-    if (potreeContainerDiv.current) {
-      // initialize Potree viewer
-      const viewerElem = potreeContainerDiv.current;
-      const viewer = new Potree.Viewer(viewerElem);
-
-      viewer.setEDLEnabled(true);
-      viewer.setFOV(60);
-      viewer.setPointBudget(1 * 1000 * 1000);
-      viewer.setClipTask(Potree.ClipTask.SHOW_INSIDE);
-      viewer.loadSettingsFromURL();
-
-      viewer.setControls(viewer.orbitControls);
-
-      viewer.loadGUI(() => {
-        viewer.setLanguage('en');
-        document.getElementById("menu_appearance").nextElementSibling.style.display = 'block';
-        viewer.toggleSidebar();
-      });
-
-      // Load and add point cloud to scene
-      const url = POINT_CLOUDS[target];
-
-      Potree.loadPointCloud(url).then(e => {
-        const pointcloud = e.pointcloud;
-        const material = pointcloud.material;
-
-        material.activeAttributeName = "rgba";
-        material.minSize = 2;
-        material.pointSizeType = Potree.PointSizeType.FIXED;
-
-        viewer.scene.addPointCloud(pointcloud);
-
-        viewer.fitToScreen();
-
-        console.log("This is the url", url);
-      }).catch(e => console.error("ERROR: ", e));
-    }
-  }, [target]);
-
+    setCloudUrl(POINT_CLOUDS[currentIndex + target]);
+  };
   return (
-    <div id="potree-root">
-      <Wrapper ref={potreeContainerDiv} className="potree_container">
-        <div id="potree_render_area">
-        </div>
-      </Wrapper>
+    <div
+      className="potree_container"
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        left: 0,
+        top: 0,
+      }}
+    >
+      <PotreeViewer cloudUrl={cloudUrl} />
+      <SideToolBar />
       <div className="potree_controls">
         <button onClick={() => onChangePointCloud(-1)}>Back</button>
         <button onClick={() => onChangePointCloud(1)}>Next</button>
@@ -88,4 +41,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
