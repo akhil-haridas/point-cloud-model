@@ -89010,8 +89010,7 @@ ENDSEC
 				VRButton.createButton(this.renderer).then(vrButton => {
 
 					if(vrButton == null){
-						console.log("VR not supported or active.dfgfdg",VRButton,vrButton,this.renderer);
-
+						console.log("VR not supported or active");
 						return;
 					}
 
