@@ -61215,7 +61215,7 @@ void main() {
 			fitted.scale.multiply(ds);
 
 			let duration = performance.now() - start;
-			console.log("duration: ", duration);
+			// console.log("duration: ", duration);
 
 			yield fitted;
 		}
@@ -61272,7 +61272,7 @@ void main() {
 			fitted.scale.multiply(ds);
 
 			let duration = performance.now() - start;
-			console.log("duration: ", duration);
+			// console.log("duration: ", duration);
 
 			return fitted;
 		}
@@ -62709,7 +62709,7 @@ void main() {
 			const tEnd = performance.now();
 			const duration = tEnd - tStart;
 
-			console.log(`shader compile duration: ${duration.toFixed(3)}`);
+			// console.log(`shader compile duration: ${duration.toFixed(3)}`);
 
 
 		}
@@ -89178,7 +89178,7 @@ ENDSEC
 
 		initThree () {
 
-			console.log(`initializing three.js ${REVISION}`);
+			// console.log(`initializing three.js ${REVISION}`);
 
 			let width = this.renderArea.clientWidth;
 			let height = this.renderArea.clientHeight;
