@@ -4,9 +4,11 @@ const Potree = window.Potree;
 
 const PotreeViewer = ({ cloudUrl }) => {
   const potreeContainerDiv = useRef(null);
+  const viewerInitialized = useRef(false);
 
   const initializeViewer = useCallback(() => {
-    if (potreeContainerDiv.current) {
+    if (potreeContainerDiv.current && !viewerInitialized.current) {
+      viewerInitialized.current = true;
       const viewerElem = potreeContainerDiv.current;
       const viewer = new Potree.Viewer(viewerElem);
 
@@ -15,7 +17,6 @@ const PotreeViewer = ({ cloudUrl }) => {
       viewer.setPointBudget(1 * 1000 * 1000);
       viewer.setClipTask(Potree.ClipTask.SHOW_INSIDE);
       viewer.loadSettingsFromURL();
-
       viewer.setControls(viewer.orbitControls);
 
       viewer.loadGUI(() => {
@@ -23,9 +24,7 @@ const PotreeViewer = ({ cloudUrl }) => {
         viewer.toggleSidebar();
       });
 
-      const url = cloudUrl || "http://5.9.65.151/mschuetz/potree/resources/pointclouds/helimap/360/MLS_drive1/cloud.js";
-
-      Potree.loadPointCloud(url)
+      Potree.loadPointCloud(cloudUrl)
         .then((e) => {
           const pointcloud = e.pointcloud;
           const material = pointcloud.material;
@@ -35,10 +34,7 @@ const PotreeViewer = ({ cloudUrl }) => {
           material.pointSizeType = Potree.PointSizeType.FIXED;
 
           viewer.scene.addPointCloud(pointcloud);
-
           viewer.fitToScreen();
-
-          console.log("This is the url", url);
         })
         .catch((e) => console.error("ERROR: ", e));
     }
