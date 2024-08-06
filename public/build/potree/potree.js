@@ -79092,6 +79092,8 @@ ENDSEC
 						maxMarkers: 3,
 						name: 'Angle'});
 
+						measurement.addEventListener('marker_dropped', (e) => {console.log('ANGLE',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79114,6 +79116,8 @@ ENDSEC
 						maxMarkers: 1,
 						name: 'Point'});
 
+						measurement.addEventListener('marker_dropped', (e) => {console.log('POINT',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79132,6 +79136,8 @@ ENDSEC
 						showArea: false,
 						closed: false,
 						name: 'Distance'});
+
+						measurement.addEventListener('marker_dropped', (e) => {console.log('DISTANCE',e?.measurement)});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
@@ -79153,6 +79159,8 @@ ENDSEC
 						closed: false,
 						maxMarkers: 2,
 						name: 'Height'});
+
+						measurement.addEventListener('marker_dropped', (e) => {console.log('HEIGHT',e?.measurement)});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
@@ -79176,6 +79184,8 @@ ENDSEC
 						closed: false,
 						maxMarkers: 3,
 						name: 'Circle'});
+
+						measurement.addEventListener('marker_dropped', (e) => {console.log('CIRCLE',e?.measurement)});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
@@ -79201,6 +79211,8 @@ ENDSEC
 						maxMarkers: 2,
 						name: 'Azimuth'});
 
+						measurement.addEventListener('marker_dropped', (e) => {console.log('AZIMUTH',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79220,6 +79232,8 @@ ENDSEC
 						closed: true,
 						name: 'Area'});
 
+						measurement.addEventListener('marker_dropped', (e) => {console.log('AREA',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === measurement.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79234,6 +79248,8 @@ ENDSEC
 				() => {
 					let volume = this.volumeTool.startInsertion(); 
 
+					measurement.addEventListener('marker_dropped', (e) => {console.log('VOLUME',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === volume.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79247,6 +79263,8 @@ ENDSEC
 				'[title]tt.volume_measurement',
 				() => { 
 					let volume = this.volumeTool.startInsertion({type: SphereVolume}); 
+
+					measurement.addEventListener('marker_dropped', (e) => {console.log('SPHERE VOLUME',e?.measurement)});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === volume.uuid);
@@ -79263,6 +79281,8 @@ ENDSEC
 					$('#menu_measurements').next().slideDown(); ;
 					let profile = this.profileTool.startInsertion();
 
+					measurement.addEventListener('marker_dropped', (e) => {console.log('PROFILE',e?.measurement)});
+
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === profile.uuid);
 					$.jstree.reference(jsonNode.id).deselect_all();
@@ -79277,6 +79297,8 @@ ENDSEC
 				() => {
 					$('#menu_measurements').next().slideDown(); ;
 					let annotation = this.viewer.annotationTool.startInsertion();
+
+					measurement.addEventListener('marker_dropped', (e) => {console.log('ANNOTATION',e?.measurement)});
 
 					let annotationsRoot = $("#jstree_scene").jstree().get_json("annotations");
 					let jsonNode = annotationsRoot.children.find(child => child.data.uuid === annotation.uuid);
