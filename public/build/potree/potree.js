@@ -79281,7 +79281,7 @@ ENDSEC
 					$('#menu_measurements').next().slideDown(); ;
 					let profile = this.profileTool.startInsertion();
 
-					measurement.addEventListener('marker_dropped', (e) => {console.log('PROFILE',e?.measurement)});
+					profile.addEventListener('marker_dropped', (e) => {console.log('PROFILE',e?.profile)});
 
 					let measurementsRoot = $("#jstree_scene").jstree().get_json("measurements");
 					let jsonNode = measurementsRoot.children.find(child => child.data.uuid === profile.uuid);
